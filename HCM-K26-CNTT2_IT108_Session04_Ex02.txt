@@ -1,0 +1,10 @@
+Bài 2 : Phân tích và xử lý lỗi thực thi trong Terminal
+Phần 1: Phân tích nguyên nhân lỗi "Quy trình thám tử 3 bước"
+-Bước 1: Sử dụng lệnh trên Windows PowerShell (Get-Location hoặc pwd) thì ta sẽ thấy vị trí hiện tại của mình là C:\Users\<User>\Desktop
+-Bước 2: Sử dụng lệnh trên Windows PowerShell (Get-ChildItem hoặc dir / ls) sẽ cho ta manh mối ở mục Deskop sẽ có những thư mục gì và khi nó báo các file ở đó và không có báo "deploy.ps1" thì ta sẽ xác định nó không ở Deskop
+-Bước 3: vị trí File deploy.ps1 nằm ở (C:\Users\<User>\Downloads\Project), và PowerShell có cơ chế bảo mật bỏ Path của thư mục tránh người dùng bấm file lạ không an toàn để tránh file lạ tự động kích hoạt mã độc nên buộc phải dùng .\ và lý do sử dụng lệnh .\deploy.ps1 vẫn sai do người dùng đang ở (C:\Users\<User>\Desktop) nên PowerShell nghĩ là tìm (.\deploy.ps1) ở mục Deskop nên mới báo lỗi sai thư mục
+Phần 2: Sửa lỗi:
+-Di chuyển từ Desktop đến đúng thư mục chứa file (Downloads\Project) bằng đường dẫn tuyệt đối [ cd "C:\Users\<User>\Downloads\Project" ]
+hoặc đường dẫn tương đối là [ Set-Location ..\Downloads\Project ]
+-Tiếp theo là kiểm tra xác nhận file "deploy.ps1" bằng Test-Path  bằng cách gõ lệnh là [ Test-Path .\deploy.ps1 ] và nó sẽ hiện True nếu có "deploy.ps1" , còn Get-ChildItem thì sẽ hiện ra danh sách chi tiết rất nhiều tệp và người dùng phải đọc tìm file deploy.ps1 trong danh sách đó
+-Cuối cùng thực thi file script thành công bằng lệnh ".\deploy.ps1"
